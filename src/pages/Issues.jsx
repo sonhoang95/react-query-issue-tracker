@@ -1,17 +1,33 @@
-import IssuesList from "../components/IssuesList";
-import LabelList from "../components/LabelList";
+import { useState } from 'react'
+import IssuesList from '../components/IssuesList'
+import LabelList from '../components/LabelList'
+
 export default function Issues() {
+  const [labels, setLabels] = useState([]) // options to select multiple labels
+
   return (
     <div>
       <main>
         <section>
           <h1>Issues</h1>
-          <IssuesList />
+          <IssuesList labels={labels} />
         </section>
         <aside>
-          <LabelList />
+          <LabelList
+            selected={labels}
+            // remove if selected label is clicked, if not add to labels array for multi-selected labels
+            toggle={(label) =>
+              setLabels((currentLabels) =>
+                currentLabels.includes(label)
+                  ? currentLabels.filter(
+                      (currentLabel) => currentLabel !== label
+                    )
+                  : currentLabels.concat(label)
+              )
+            }
+          />
         </aside>
       </main>
     </div>
-  );
+  )
 }
