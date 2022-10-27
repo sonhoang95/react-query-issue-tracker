@@ -2,10 +2,12 @@ import { useQuery } from 'react-query'
 import { fetchData } from '../helpers/fetchData'
 import { IssueItem } from './IssueItem'
 
-export default function IssuesList({ labels }) {
-  const issuesQuery = useQuery(['issues', { labels }], () => {
+export default function IssuesList({ labels, status }) {
+  const issuesQuery = useQuery(['issues', { labels, status }], () => {
+    const statusString = status ? `&status=${status}` : ''
     const labelsString = labels.map((label) => `labels[]=${label}`).join('&')
-    return fetchData(`/api/issues?${labelsString}`)
+
+    return fetchData(`/api/issues?${labelsString}${statusString}`)
   })
 
   const { data, isLoading } = issuesQuery
