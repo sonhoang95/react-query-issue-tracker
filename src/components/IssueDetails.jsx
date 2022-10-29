@@ -50,7 +50,7 @@ export default function IssueDetails() {
   return (
     <div className="issue-details">
       {issueQuery.isLoading ? (
-        <p>Loading issue</p>
+        <p>Loading issue...</p>
       ) : (
         <>
           <IssueHeader {...issueQuery.data} />
